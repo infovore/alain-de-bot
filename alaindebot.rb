@@ -26,9 +26,8 @@ end
 
 mc = MarkovChain.new(File.read(PATH_PREFIX + "/tweets.txt"))
 
-#prob = ARGV[0] || 120
 # one in 120 times, generate a chain
-#if(rand(prob) < 1)
+if(rand(120) < 1)
 # if it's less than 141 chars, tweet it
   string = mc.sentences(1).capitalize
 # otherwise re-generate until it fits
@@ -37,4 +36,4 @@ mc = MarkovChain.new(File.read(PATH_PREFIX + "/tweets.txt"))
   end
   puts "posting tweet #{string}"
   Twitter.update(string)
-#end
+end
