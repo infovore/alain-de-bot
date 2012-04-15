@@ -31,6 +31,8 @@ tweets = []
 end 
 
 tweets.each do |tweet|
-  DB[:existing_tweets].insert(:id => tweet.id,
-                              :content => tweet.text)
+  unless DB[:existing_tweets].first(:id => tweet.id)
+    DB[:existing_tweets].insert(:id => tweet.id,
+                                :content => tweet.text)
+  end
 end
