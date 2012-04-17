@@ -22,7 +22,7 @@ GENERATION
 
   generate.rb
 
-will generate a hundred initial tweets. Thereafter, the system ought to stock up if it's low.
+will generate 100 initial tweets, but isn't really necessary; the system automatically stocks up when it's too low.
 
 
 RUNNING

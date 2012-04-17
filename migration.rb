@@ -17,6 +17,7 @@ DB.create_table :to_be_posted do
   primary_key :id
   String :content, :null => false
   DateTime :created_at
+  DateTime :posted_at
   index :created_at
 end
 

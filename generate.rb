@@ -16,11 +16,10 @@ to_be_posted = DB[:to_be_posted]
   mc = MarkovChain.new(text)
   # if it's less than 141 chars, tweet it
   string = mc.sentences(1).capitalize
-  puts string
   # otherwise re-generate until it fits
-  while string.size > 140
+  while string.size > 140 && !to_be_posted.first(:content => string)
     string = mc.sentences(1).capitalize
   end
-
-  to_be_posted.insert(:content => string)
+  
+  to_be_posted.insert(:content => string, :created_at => Time.now)
 end
