@@ -33,6 +33,7 @@ end
 tweets.each do |tweet|
   unless DB[:existing_tweets].first(:id => tweet.id)
     DB[:existing_tweets].insert(:id => tweet.id,
+                                :created_at => tweet.created_at,
                                 :content => tweet.text)
   end
 end
