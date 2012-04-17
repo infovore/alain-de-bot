@@ -6,7 +6,7 @@ require "#{File.dirname(__FILE__)}/lib/array.rb"
 require "#{File.dirname(__FILE__)}/lib/markov_chain.rb"
 Bundler.require(:default)
 
-DB = Sequel.sqlite('alain_de_bot.db')
+DB = Sequel.sqlite("#{File.dirname(__FILE__)}/alain_de_bot.db")
 
 tweets = DB[:existing_tweets]
 text = tweets.map {|t| t[:content]}.join(" ")
