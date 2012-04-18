@@ -8,6 +8,8 @@ SETUP
 
 will create the sqlite database you require
 
+Fill out creds.yml with your Twitter creds
+
 INGEST
 ------
 
@@ -15,7 +17,7 @@ running
 
   ingest.rb
 
-once a week will add the latest de botton tweets.
+once a week will add the latest tweets from a source.
 
 RUNNING
 -------
