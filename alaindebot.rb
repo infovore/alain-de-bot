@@ -50,8 +50,8 @@ if(rand(120) < 1)
     puts "generating items"
     generate_items
   end
-  Twitter.update(to_be_posted.first[:content])
   first_tweet = to_be_posted.first(:posted_at => nil)
+  Twitter.update(first_tweet[:content])
   puts "posting tweet #{first_tweet[:content]}"
   to_be_posted.where(:id => first_tweet[:id]).update(:posted_at => Time.now)
 end
