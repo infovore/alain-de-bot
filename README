@@ -17,14 +17,6 @@ running
 
 once a week will add the latest de botton tweets.
 
-GENERATION
-----------
-
-  generate.rb
-
-will generate 100 initial tweets, but isn't really necessary; the system automatically stocks up when it's too low.
-
-
 RUNNING
 -------
 
