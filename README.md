@@ -4,7 +4,7 @@ Alain De Bot
 SETUP
 -----
 
-  migration.rb
+    migration.rb
 
 will create the sqlite database you require
 
@@ -15,13 +15,13 @@ INGEST
 
 running
 
-  ingest.rb
+    ingest.rb
 
 once a week will add the latest tweets from a source.
 
 RUNNING
 -------
 
-  alaindebot.rb
+    alaindebot.rb
 
 should be called by cron once every X minutes
