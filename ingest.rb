@@ -2,6 +2,7 @@
 
 require "rubygems"
 require "bundler/setup"
+require 'yaml'
 Bundler.require(:default)
 
 PATH_PREFIX = File.expand_path(File.dirname(__FILE__))
@@ -14,19 +15,21 @@ DB = Sequel.sqlite('alain_de_bot.db')
   Object.const_set(key.upcase, config["config"][key])
 end
 
-Twitter.configure do |config|
+client = Twitter::REST::Client.new do |config|
   config.consumer_key = CONSUMER_KEY
   config.consumer_secret = CONSUMER_SECRET
-  config.oauth_token = ACCESS_TOKEN
-  config.oauth_token_secret = ACCESS_TOKEN_SECRET
+  config.access_token = ACCESS_TOKEN
+  config.access_token_secret = ACCESS_TOKEN_SECRET
 end
 
 user_name = 'alaindebotton' 
 tweets = [] 
 
 (1..16).each do |page| 
-  Twitter.user_timeline(user_name, :page => page, :count => 200).each do |tweet| 
-    tweets << tweet 
+  client.user_timeline(user_name, :page => page, :count => 200).each do |tweet| 
+    puts "Found tweet"
+    p tweet.text
+    tweets << tweet
   end 
 end 
 

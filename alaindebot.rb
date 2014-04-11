@@ -4,6 +4,7 @@ require "rubygems"
 require "bundler/setup"
 require "#{File.dirname(__FILE__)}/lib/array.rb"
 require "#{File.dirname(__FILE__)}/lib/markov_chain.rb"
+require 'yaml'
 Bundler.require(:default)
 
 DB = Sequel.sqlite("#{File.dirname(__FILE__)}/alain_de_bot.db")
@@ -28,17 +29,17 @@ end
 
 
 PATH_PREFIX = File.expand_path(File.dirname(__FILE__))
-config = YAML.parse(File.read(PATH_PREFIX + "/creds.yml"))
+config = YAML.load(File.read(PATH_PREFIX + "/creds.yml"))
 
 %w{consumer_key consumer_secret access_token access_token_secret}.each do |key|
-  Object.const_set(key.upcase, config["config"][key].value)
+  Object.const_set(key.upcase, config["config"][key])
 end
 
-Twitter.configure do |config|
+client = Twitter::REST::Client.new do |config|
   config.consumer_key = CONSUMER_KEY
   config.consumer_secret = CONSUMER_SECRET
-  config.oauth_token = ACCESS_TOKEN
-  config.oauth_token_secret = ACCESS_TOKEN_SECRET
+  config.access_token = ACCESS_TOKEN
+  config.access_token_secret = ACCESS_TOKEN_SECRET
 end
 
 to_be_posted = DB[:to_be_posted]
@@ -51,7 +52,7 @@ if(rand(120) < 1)
     generate_items
   end
   first_tweet = to_be_posted.first(:posted_at => nil)
-  Twitter.update(first_tweet[:content])
+  client.update(first_tweet[:content])
   puts "posting tweet #{first_tweet[:content]}"
   to_be_posted.where(:id => first_tweet[:id]).update(:posted_at => Time.now)
 end
